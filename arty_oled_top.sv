@@ -20,24 +20,26 @@
 
 
 module arty_oled_top(
-    input resetn,
-    input sclk,
-    input [3:0] sw,
-    input [3:0] btn,
-    output logic [3:0] led,
-    output logic led0_r,
-    output logic led0_g,
-    output logic led0_b,
-    output logic led1_r,
-    output logic led1_g,
-    output logic led1_b,
-    output logic led2_r,                    
-    output logic led2_g,
-    output logic led2_b,
-    output logic led3_r,                    
-    output logic led3_g,
-    output logic led3_b    
-    );
+  input resetn,
+  input sclk,
+  input [3:0] sw,
+  input [3:0] btn,
+  output logic [3:0] led,
+  output logic led0_r,
+  output logic led0_g,
+  output logic led0_b,
+  output logic led1_r,
+  output logic led1_g,
+  output logic led1_b,
+  output logic led2_r,                    
+  output logic led2_g,
+  output logic led2_b,
+  output logic led3_r,                    
+  output logic led3_g,
+  output logic led3_b, 
+  output logic [7:0] ja; //JA Arty board header (low speed)
+     
+);
 
   wire [3:0] btn_db;
   wire [3:0] sw_db;
@@ -46,7 +48,7 @@ module arty_oled_top(
   debounce #(.WIDTH(4)) sw_debounce(.*, .signal_in(sw), .signal_out(sw_db));  
   led_ctrl led_ctrl(.*, .sw(sw_db), .btn(btn_db));
       
-  oled_ctrl oled_ctrl();
-  spi_m spim();
+  oled_ctrl oled_ctrl(.*);
+  spi_m spim(.*);
       
 endmodule
